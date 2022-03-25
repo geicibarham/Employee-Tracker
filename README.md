@@ -27,9 +27,9 @@ Clone github repo, then on your command line, insert "node server.js" to get app
 ![alt-text](https://github.com/geicibarham/Note_Taker/blob/main/screenshot/Screenshot%20(64).png)
 
 ## Credits
-*https://www.npmjs.com/package/chalk/v/3.0.0
-*https://www.npmjs.com/package/mysql2
-*https://www.npmjs.com/package/console.table/v/0.10.0
+* https://www.npmjs.com/package/chalk/v/3.0.0
+* https://www.npmjs.com/package/mysql2
+* https://www.npmjs.com/package/console.table/v/0.10.0
     
 ## Contribute
     
