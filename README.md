@@ -1,6 +1,6 @@
 # Employee-Tracker
 
-Employee Tracker is an application used to track/update employees and departments. It runs through the command line. When users start the application, they are prompted with questions that let them manage a SQL database and perform all 4 CRUD methods.
+Employee Tracker is an application used to track/update employees and departments. It runs through the command line. When users start the application, they are prompted with questions that let them manage interact with database.
 Currently, users are able to add and view departments, employees,roles,  and update employees' roles.
 
 ## Licensing
