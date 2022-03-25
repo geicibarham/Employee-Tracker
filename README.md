@@ -24,7 +24,7 @@ Currently, users are able to add and view departments, employees,roles,  and upd
     
 Clone github repo, then on your command line, insert "node server.js" to get application started. Then choose from options to view, update
 
-![alt-text](https://github.com/geicibarham/Note_Taker/blob/main/screenshot/Screenshot%20(64).png)
+![alt-text](https://github.com/geicibarham/Employee-Tracker/blob/main/assets/Screenshot%20(64).png)
 
 ## Credits
 * [Chalk - Npm ](https://www.npmjs.com/package/chalk/v/3.0.0)
