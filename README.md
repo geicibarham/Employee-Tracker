@@ -28,7 +28,7 @@ Clone github repo, then on your command line, insert "node server.js" to get app
 
 ## Credits
 * [Chalk - Npm ](https://www.npmjs.com/package/chalk/v/3.0.0)
-* [My Sql](https://www.npmjs.com/package/mysql2)
+* [My Sql2](https://www.npmjs.com/package/mysql2)
 * [Console_Table](https://www.npmjs.com/package/console.table/v/0.10.0)
 * [C-Fonts](https://www.npmjs.com/package/cfonts)
     
