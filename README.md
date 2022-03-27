@@ -23,7 +23,7 @@ Currently, users are able to add and view departments, employees,roles,  and upd
 ## Usage
     
 Clone github repo, then on your command line, insert "node server.js" to get application started.
-Whole functionality of app can be viewed [here](https://drive.google.com/file/d/1xaW6uJ2lyr3fbxUC4EBwT8_ij4Olonjc/view).
+Whole functionality of app can be viewed [on this video](https://drive.google.com/file/d/1xaW6uJ2lyr3fbxUC4EBwT8_ij4Olonjc/view).
 
 ![alt-text](https://github.com/geicibarham/Employee-Tracker/blob/main/assets/Screenshot%20(64).png)
 
