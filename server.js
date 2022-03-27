@@ -102,7 +102,10 @@ const viewDepartments = () => {
 }
 
 const viewRoles = () => {
-  let query = `SELECT * FROM roles`
+  let query = `SELECT title, salary, department_id,name as department_name
+  FROM roles
+  left join department on department_id = department.id`
+
 
   connection.query(query, function (err, res) {
     if (err) throw err;
@@ -117,9 +120,8 @@ const viewRoles = () => {
 }
 
 const viewEmployees = () => {
-  // HEELLLLLLLLLLLLLP WITH JOIN QUERY
   let query = `
-  SELECT first_name, last_name, title, salary, department.name 
+  SELECT first_name, last_name, title, manager_id, salary, department.name as department
   FROM employee
   LEFT JOIN roles
   ON role_id = roles.id
@@ -131,7 +133,7 @@ const viewEmployees = () => {
 
 
     console.table(res);
-    console.log("Viewing roles!");
+    console.log("Viewing employees!");
 
     optionsAsk();
 
@@ -148,6 +150,7 @@ const addDeparment = () => {
       name: 'name',
       message: 'What department would you like to add?'
     }
+
   ])
     .then((answers) => {
 
@@ -156,43 +159,86 @@ const addDeparment = () => {
         if (err) throw err;
         console.table(res);
         console.log(chalk.yellowBright('Department added!'));
+        console.table(res);
         optionsAsk();
+
       })
+
     })
-
-
 
 }
 
-const addRole = () => {
+
+const getDepartment = () => {
+  return connection.promise().query('SELECT * FROM department')
+}
+
+const addRole = async () => {
+  const [rows] = await getDepartment();
+  console.table(rows)
 
   inquirer.prompt([
 
     {
       type: 'input',
+      name: 'departmentid',
+      message: 'What is the department id?',
+    },
+    {
+      type: 'input',
       name: 'title',
-      message: 'What role would you like to add?'
+      message: 'What is the name of the role?'
+
+    },
+    {
+      type: 'input',
+      name: 'salary',
+      message: 'What is the salary for that role?'
     },
 
   ])
     .then((answers) => {
 
-      let query = `INSERT INTO roles (title,salary,department_id)  VALUES ("${answers.title}" ,"${answers.salary}" ,"${answers.id}");`
+      let query = `INSERT INTO roles (department_id,title,salary)  VALUES ("${answers.departmentid}" ,"${answers.title}" ,"${answers.salary}");`
 
       connection.query(query, function (err, res) {
         if (err) throw err;
         console.table(res);
-        console.log(chalk.magenta('Department added!'));
+        console.log(chalk.magenta('Role added!'));
         optionsAsk();
+
+        })
+
       })
-    })
-
-
+    
 }
 
-const addEmployee = () => {
+const getManager = () => {
+  return connection.promise().query(`SELECT first_name, employee.id as employee_id, title as role_name, role_id,manager_id, department.name as department
+    FROM employee
+    LEFT JOIN roles
+    ON role_id = roles.id
+    LEFT JOIN department
+    ON department_id = department.id`)
+}
+
+const addEmployee = async() => {
+  const [rows] = await getManager();
+  console.table(rows);
 
   inquirer.prompt([
+
+    {
+      type: 'input',
+      name: 'managerid',
+      message: "What is the manager's id?Check on table above for manager_id"
+    },
+
+    {
+      type: 'input',
+      name: 'roleid',
+      message: "What is the role id? - Check on table above for role_id!"
+    },
 
     {
       type: 'input',
@@ -205,22 +251,10 @@ const addEmployee = () => {
       name: 'lastname',
       message: "What is the employee's last name?"
     },
-
-    {
-      type: 'input',
-      name: 'roleid',
-      message: "What is the employee's role_id?"
-    },
-
-    {
-      type: 'input',
-      name: 'managerid',
-      message: "What is the employee's manager_id? - type null if they do't have a manager!"
-    },
   ])
     .then((answers) => {
 
-      let query = `INSERT INTO employee (first_name, last_name, role_id, manager_id)  VALUES ("${answers.firstname}" ,"${answers.lastname}" ,"${answers.roleid}" ,"${answers.managerid});`
+      let query = (`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${answers.firstname}", "${answers.lastname}", ${answers.roleid}, ${answers.managerid});`)
 
       connection.query(query, function (err, res) {
         if (err) throw err;
@@ -286,7 +320,7 @@ const updateEmployee = async () => {
         {
           type: 'list',
           name: 'role',
-          message: 'What employee would you like to update?',
+          message: 'What is the new role of the employee?',
           // choices: roleChoices
           choices: newArr
         },
@@ -311,7 +345,7 @@ const updateEmployee = async () => {
 }
 
 const quit = () => {
-  
+
   return CFonts.say('GoodBye', {
     font: 'simple',
     align: 'center',
@@ -325,5 +359,4 @@ const quit = () => {
 }
 
 optionsAsk();
-
 
